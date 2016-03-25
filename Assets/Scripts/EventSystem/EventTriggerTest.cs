@@ -9,21 +9,9 @@ public class EventTriggerTest : MonoBehaviour
 
 	protected void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.W))
+		if (Input.GetKeyDown (KeyCode.Space))
 		{
-			EventManager.TriggerEvent ("Walk");
-		}
-		if (Input.GetKeyDown (KeyCode.S))
-		{
-			EventManager.TriggerEvent ("MoonWalk");
-		}
-		if (Input.GetKeyDown (KeyCode.A))
-		{
-			EventManager.TriggerEvent ("RotateLeft");
-		}
-		if (Input.GetKeyDown (KeyCode.D))
-		{
-			EventManager.TriggerEvent ("RotateRight");
+			EventManager.TriggerEvent ("test");
 		}
 	}
 }

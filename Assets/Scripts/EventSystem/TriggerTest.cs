@@ -3,61 +3,29 @@
 
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections;
-using System;
 
 public class TriggerTest : MonoBehaviour
 {
 	private UnityAction someListener;
-	private const string EVENTW = "Walk";
-	private const string EVENTS = "MoonWalk";
-	private const string EVENTA = "RotateLeft";
-	private const string EVENTD = "RotateRight";
+	private const string TEST = "test";
 
 	void Awake ()
 	{
 		someListener = new UnityAction (SomeFunction);
 	}
 
-	private void SomeFunction ()
-	{
-
-	}
-
 	void OnEnable ()
 	{
-		EventManager.StartListening (EVENTW, MoveForward);
-		EventManager.StartListening (EVENTS, MoveBackwards);
-		EventManager.StartListening (EVENTA, RotateLeft);
-		EventManager.StartListening (EVENTD, RotateRight);
+		EventManager.StartListening (TEST, someListener);
 	}
 
 	void OnDisable ()
 	{
-		EventManager.StopListening (EVENTW, MoveForward);
-		EventManager.StopListening (EVENTS, MoveBackwards);
-		EventManager.StopListening (EVENTA, RotateLeft);
-		EventManager.StopListening (EVENTD, RotateRight);
+		EventManager.StopListening (TEST, someListener);
 	}
 
-	private void MoveForward ()
+	private void SomeFunction ()
 	{
-		Vector3 targetPosition = transform.position;
-		targetPosition.y += 1;
-		transform.position = Vector3.Lerp (transform.position, targetPosition, 0.5f);
-	}
-	private void MoveBackwards ()
-	{
-		Vector3 targetPosition = transform.position;
-		targetPosition.y -= 1;
-		transform.position = Vector3.Lerp (transform.position, targetPosition, 0.5f);
-	}
-	private void RotateRight ()
-	{
-		transform.Rotate (new Vector3 (0, 0, -10));
-	}
-	private void RotateLeft ()
-	{
-		transform.Rotate (new Vector3 (0, 0, 10));
+		print ("SomeFunction");
 	}
 }

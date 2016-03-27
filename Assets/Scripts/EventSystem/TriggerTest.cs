@@ -16,12 +16,12 @@ public class TriggerTest : MonoBehaviour
 
 	void OnEnable ()
 	{
-		EventManager.StartListening (TEST, someListener);
+		EventManager.AddListener (TEST, someListener);
 	}
 
 	void OnDisable ()
 	{
-		EventManager.StopListening (TEST, someListener);
+		EventManager.RemoveListener (TEST, someListener);
 	}
 
 	private void SomeFunction ()

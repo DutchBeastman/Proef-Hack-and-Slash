@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace Utils
 {
-	public class AudioEvent : UnityEvent<AudioClip>
+	public class AudioSFXEvent : UnityEvent<AudioClip>
 	{
 
 	}

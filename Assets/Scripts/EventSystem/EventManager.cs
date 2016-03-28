@@ -11,7 +11,8 @@ public class EventManager : MonoBehaviour
 {
 
 	private Dictionary<string, UnityEvent> eventDictionary;
-	private Dictionary<string, AudioEvent> audioEventDictionary;
+	private Dictionary<string, AudioSFXEvent> audioSFXEventDictionary;
+	private Dictionary<string, AudioMusicEvent> audioMusicEventDictionary;
 
 	private static EventManager eventManager;
 	private const string AUDIOEVENT = "audioEvent";
@@ -44,9 +45,13 @@ public class EventManager : MonoBehaviour
 		{
 			eventDictionary = new Dictionary<string, UnityEvent> ();
 		}
-		if(audioEventDictionary == null)
+		if (audioSFXEventDictionary == null)
 		{
-			audioEventDictionary = new Dictionary<string, AudioEvent>();
+			audioSFXEventDictionary = new Dictionary<string, AudioSFXEvent> ();
+		}
+		if (audioMusicEventDictionary == null)
+		{
+			audioMusicEventDictionary = new Dictionary<string, AudioMusicEvent> ();
 		}
 	}
 
@@ -65,18 +70,33 @@ public class EventManager : MonoBehaviour
 		}
 	}
 
-	public static void AddAudioListener (UnityAction<AudioClip> listener)
+	public static void AddAudioSFXListener (UnityAction<AudioClip> listener)
 	{
-		AudioEvent thisEvent = null;
-		if (instance.audioEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
+		AudioSFXEvent thisEvent = null;
+		if (instance.audioSFXEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
 		{
 			thisEvent.AddListener (listener);
 		}
 		else
 		{
-			thisEvent = new AudioEvent ();
+			thisEvent = new AudioSFXEvent ();
 			thisEvent.AddListener (listener);
-			instance.audioEventDictionary.Add (AUDIOEVENT, thisEvent);
+			instance.audioSFXEventDictionary.Add (AUDIOEVENT, thisEvent);
+		}
+	}
+
+	public static void AddAudioMusicListener (UnityAction<AudioClip> listener)
+	{
+		AudioMusicEvent thisEvent = null;
+		if (instance.audioMusicEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
+		{
+			thisEvent.AddListener (listener);
+		}
+		else
+		{
+			thisEvent = new AudioMusicEvent ();
+			thisEvent.AddListener (listener);
+			instance.audioMusicEventDictionary.Add (AUDIOEVENT, thisEvent);
 		}
 	}
 
@@ -93,14 +113,27 @@ public class EventManager : MonoBehaviour
 		}
 	}
 
-	public static void RemoveAudioListener (UnityAction<AudioClip> listener)
+	public static void RemoveAudioSFXListener (UnityAction<AudioClip> listener)
 	{
 		if (eventManager == null)
 		{
 			return;
 		}
-		AudioEvent thisEvent = null;
-		if (instance.audioEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
+		AudioSFXEvent thisEvent = null;
+		if (instance.audioSFXEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
+		{
+			thisEvent.RemoveListener (listener);
+		}
+	}
+
+	public static void RemoveAudioMusicListener (UnityAction<AudioClip> listener)
+	{
+		if (eventManager == null)
+		{
+			return;
+		}
+		AudioMusicEvent thisEvent = null;
+		if (instance.audioMusicEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
 		{
 			thisEvent.RemoveListener (listener);
 		}
@@ -115,24 +148,21 @@ public class EventManager : MonoBehaviour
 		}
 	}
 
-	public static void TriggerAudioEvent (AudioClip clip)
+	public static void TriggerAudioSFXEvent (AudioClip clip)
 	{
-		AudioEvent thisEvent = null;
-		if (instance.audioEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
+		AudioSFXEvent thisEvent = null;
+		if (instance.audioSFXEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
 		{
 			thisEvent.Invoke (clip);
 		}
 	}
 
+	public static void TriggerAudioMusicEvent (AudioClip clip)
+	{
+		AudioMusicEvent thisEvent = null;
+		if (instance.audioMusicEventDictionary.TryGetValue (AUDIOEVENT, out thisEvent))
+		{
+			thisEvent.Invoke (clip);
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
-
-

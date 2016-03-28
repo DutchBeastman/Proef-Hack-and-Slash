@@ -9,33 +9,33 @@ using System.Collections.Generic;
 
 namespace Utils
 {
-	public class AudioPlayer2 : MonoBehaviour
+	public class AudioPlayer : MonoBehaviour
 	{
 		[SerializeField] private int maxChannels;
-		private HashSet<AudioChannel2> channels;
+		private HashSet<AudioChannel> channels;
 
 		private const string AUDIOEVENT = "audioEvent";
 
 		protected void Awake ()
 		{
-			channels = new HashSet<AudioChannel2> ();
+			channels = new HashSet<AudioChannel> ();
 			for (int i = 0; i < maxChannels; i++)
 			{
 				GameObject channel = new GameObject ("channel" + i);
 				channel.transform.SetParent (transform);
 
 				channel.AddComponent<AudioSource> ();
-				channels.Add (channel.AddComponent<AudioChannel2> ());
+				channels.Add (channel.AddComponent<AudioChannel> ());
 			}
 		}
 
-		private AudioChannel2 GetFreeChannel ()
+		private AudioChannel GetFreeChannel ()
 		{
-			foreach (AudioChannel2 channel in channels)
+			foreach (AudioChannel channel in channels)
 			{
 				if (!channel.IsPlaying)
 				{
-					Debug.Log("returning empty channel");
+					Debug.Log ("returning empty channel");
 					return channel;
 				}
 			}
@@ -44,30 +44,43 @@ namespace Utils
 
 		protected void OnEnable ()
 		{
-			EventManager.AddAudioListener (PlayAudio);
+			EventManager.AddAudioSFXListener (PlaySFXAudio);
+			EventManager.AddAudioMusicListener (PlayMusicAudio);
 		}
 
 		protected void OnDisable ()
 		{
-			EventManager.RemoveAudioListener (PlayAudio);
+			EventManager.RemoveAudioSFXListener (PlaySFXAudio);
+			EventManager.RemoveAudioMusicListener (PlayMusicAudio);
 		}
 
-		private void PlayAudio (AudioClip clip)
+		private void PlaySFXAudio (AudioClip clip)
 		{
-			AudioChannel2 channel = GetFreeChannel();
-			
-			if(channel != null)
+			AudioChannel channel = GetFreeChannel ();
+
+			if (channel != null)
 			{
-				channel.Play(clip);
+				channel.Play (clip);
 			}
 			else
 			{
-				Debug.LogWarning("No free AudioChannels");
+				Debug.LogWarning ("No free AudioChannels");
 			}
 		}
 
+		private void PlayMusicAudio(AudioClip clip)
+		{
+			AudioChannel channel = GetFreeChannel ();
 
-
+			if (channel != null)
+			{
+				channel.Play (clip);
+			}
+			else
+			{
+				Debug.LogWarning ("No free AudioChannels");
+			}
+		}
 	}
 
 }

@@ -1,12 +1,12 @@
 ﻿//Created By: Jeremy Bond
-//Date: 
+//Date: 27/03/2016
 
 using UnityEngine;
 using System.Collections;
 
 namespace Utils
 {
-	public class AudioChannel2 : MonoBehaviour
+	public class AudioChannel : MonoBehaviour
 	{	
 		public float Volume
 		{

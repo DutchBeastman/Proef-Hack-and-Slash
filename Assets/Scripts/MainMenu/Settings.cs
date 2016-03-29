@@ -1,9 +1,16 @@
 ﻿//Created By: Jeremy Bond
-//Date: 
+//Date: 29/03/2016
 
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+
+enum LastChangedAudioMixer
+{
+	Master,
+	SFX,
+	Music
+}
 
 public class Settings : MonoBehaviour
 {
@@ -18,49 +25,58 @@ public class Settings : MonoBehaviour
 	private float lastMasterVolume;
 	private float lastSFXVolume;
 	private float lastMusicVolume;
+	private float startingVolume = 0.5f;
+	
+	private LastChangedAudioMixer lastChangedMixer;
+
+	protected void Awake ()
+	{
+		masterVolume.value = startingVolume;
+		SFXVolume.value = startingVolume;
+		musicVolume.value = startingVolume;
+	}
 
 	protected void Update ()
 	{
 		if (lastMasterVolume != masterVolume.value)
 		{
-			ChangeMasterVolume();
+			lastMasterVolume = masterVolume.value; 
+			ChangeMixerVolume (masterVolume, "MixerMasterVolume", LastChangedAudioMixer.Master);
 		}
 		else if(lastSFXVolume != SFXVolume.value)
 		{
-			ChangeSFXVolume();
+			lastSFXVolume = SFXVolume.value;
+			ChangeMixerVolume (SFXVolume, "MixerSFXVolume", LastChangedAudioMixer.SFX);
 		}
 		else if (lastMusicVolume != musicVolume.value)
 		{
-			ChangeMusicVolume();
+			lastMusicVolume = musicVolume.value;
+			ChangeMixerVolume(musicVolume, "MixerMusicVolume", LastChangedAudioMixer.Music);
 		}
-		else if (!afterSoundPlayed)
+		if (!afterSoundPlayed && Input.GetMouseButtonUp(0))
 		{
 			afterSoundPlayed = true;
-			EventManager.TriggerAudioSFXEvent (volumeChangedSound);
+			switch (lastChangedMixer)
+			{
+				case LastChangedAudioMixer.Master:
+					EventManager.TriggerAudioSFXEvent (volumeChangedSound);
+				break;
+				case LastChangedAudioMixer.SFX:
+					EventManager.TriggerAudioSFXEvent (volumeChangedSound);
+				break;
+				case LastChangedAudioMixer.Music:
+					EventManager.TriggerAudioMusicEvent (volumeChangedSound);
+				break;
+			}
 		}
 	}
 
-	private void ChangeMasterVolume ()
+	private void ChangeMixerVolume (Slider mixerVolume, string mixerName, LastChangedAudioMixer lastChangedAudioMixer)
 	{
-		lastMasterVolume = masterVolume.value;
-		AudioListener.volume = masterVolume.value;
-		mixer.SetFloat ("MixerMasterVolume", masterVolume.value);
-		afterSoundPlayed = false;
-	}
+		AudioListener.volume = mixerVolume.value;
+		mixer.SetFloat (mixerName, mixerVolume.value);
 
-	private void ChangeSFXVolume ()
-	{
-		lastSFXVolume = SFXVolume.value;
-		AudioListener.volume = SFXVolume.value;
-		mixer.SetFloat ("MixerSFXVolume", SFXVolume.value);
-		afterSoundPlayed = false;
-	}
-
-	private void ChangeMusicVolume ()
-	{
-		lastMusicVolume = musicVolume.value;
-		AudioListener.volume = musicVolume.value;
-		mixer.SetFloat ("MixerMusicVolume", musicVolume.value);
+		lastChangedMixer = lastChangedAudioMixer;
 		afterSoundPlayed = false;
 	}
 }

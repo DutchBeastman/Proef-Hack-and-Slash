@@ -2,6 +2,7 @@
 //Date: 27/03/2016
 
 using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
 namespace Utils
@@ -109,9 +110,10 @@ namespace Utils
 			audioSource.playOnAwake = false;
 		}
 		
-		internal void Play (AudioClip audioObject)
+		internal void Play (AudioClip audioObject, AudioMixerGroup group)
 		{
 			audioSource.clip = audioObject;
+			audioSource.outputAudioMixerGroup = group;
 			audioSource.Play ();
 		}
 

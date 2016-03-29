@@ -2,6 +2,7 @@
 //Date: 27/03/2016
 
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Events;
 using System;
 using System.Collections;
@@ -13,6 +14,8 @@ namespace Utils
 	{
 		[SerializeField] private int maxChannels;
 		private HashSet<AudioChannel> channels;
+		[SerializeField] private AudioMixerGroup SFXGroup;
+		[SerializeField] private AudioMixerGroup musicGroup;
 
 		private const string AUDIOEVENT = "audioEvent";
 
@@ -60,7 +63,7 @@ namespace Utils
 
 			if (channel != null)
 			{
-				channel.Play (clip);
+				channel.Play (clip, SFXGroup);
 			}
 			else
 			{
@@ -74,7 +77,7 @@ namespace Utils
 
 			if (channel != null)
 			{
-				channel.Play (clip);
+				channel.Play (clip, musicGroup);
 			}
 			else
 			{

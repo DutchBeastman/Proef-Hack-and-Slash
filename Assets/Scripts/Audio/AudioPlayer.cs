@@ -3,9 +3,6 @@
 
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Events;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Utils
@@ -59,25 +56,21 @@ namespace Utils
 
 		private void PlaySFXAudio (AudioClip clip)
 		{
-			AudioChannel channel = GetFreeChannel ();
-
-			if (channel != null)
-			{
-				channel.Play (clip, SFXGroup);
-			}
-			else
-			{
-				Debug.LogWarning ("No free AudioChannels");
-			}
+			PlayAudio(clip, SFXGroup);
 		}
 
 		private void PlayMusicAudio(AudioClip clip)
+		{
+			PlayAudio(clip, musicGroup);
+		}
+
+		private void PlayAudio(AudioClip clip, AudioMixerGroup group)
 		{
 			AudioChannel channel = GetFreeChannel ();
 
 			if (channel != null)
 			{
-				channel.Play (clip, musicGroup);
+				channel.Play (clip, group);
 			}
 			else
 			{
@@ -85,5 +78,4 @@ namespace Utils
 			}
 		}
 	}
-
 }

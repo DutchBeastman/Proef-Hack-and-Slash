@@ -133,7 +133,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2021608, guid: f8f964feef708ec48b59860d00f9b1c4, type: 2}
       propertyPath: near clip plane
-      value: 1
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2021608, guid: f8f964feef708ec48b59860d00f9b1c4, type: 2}
       propertyPath: orthographic
@@ -166,6 +166,10 @@ Prefab:
     - target: {fileID: 428308, guid: f8f964feef708ec48b59860d00f9b1c4, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 21.6985
+      objectReference: {fileID: 0}
+    - target: {fileID: 2021608, guid: f8f964feef708ec48b59860d00f9b1c4, type: 2}
+      propertyPath: field of view
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f8f964feef708ec48b59860d00f9b1c4, type: 2}
@@ -219,11 +223,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22449462, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22449462, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22449462, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
       propertyPath: m_AnchorMin.x
@@ -243,16 +247,36 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22449462, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22449462, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11490444, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 742748082}
     - target: {fileID: 22327900, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 742748082}
+    - target: {fileID: 11428702, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 742748082}
+    - target: {fileID: 11479060, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 742748082}
+    - target: {fileID: 11407194, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
+      propertyPath: uiCamera
+      value: 
+      objectReference: {fileID: 742748082}
+    - target: {fileID: 161626, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6dbe58ea68ccc4b468f805cfb6d5e3ac, type: 2}
   m_IsPrefabParent: 0

@@ -24,13 +24,16 @@ public class MenuMovement : MonoBehaviour {
     }
     protected void Update()
     {
+        MouseUpdate();
+        RotateElement();
+    }
+    private void MouseUpdate()
+    {
         mousePos = Input.mousePosition;
         mousePos.x += Screen.width / 3;
         mousePos.y -= Screen.width / 2;
-        RotateElement(mousePos);
     }
-
-    private void RotateElement(Vector2 mousePos)
+    private void RotateElement()
     {
         buttonRot = Quaternion.Euler(Mathf.Clamp((mousePos.y) * moveSpeedY, -moveRange.x, moveRange.y), Mathf.Clamp((mousePos.x)* moveSpeedX ,-moveRange.x,moveRange.y), 0);
         localRect.localRotation = buttonRot;
